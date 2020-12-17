@@ -7,6 +7,7 @@ public class Mover : MonoBehaviour
 {
   private Rigidbody _rigidbody;
   private bool _isFlying = false;
+  [SerializeField] private float _flyingHigh = 5;
 
 
   private void Start()
@@ -16,7 +17,6 @@ public class Mover : MonoBehaviour
 
   private void Update()
   {
-    
     if (Input.GetKey(KeyCode.W))
     {
       _isFlying = true;
@@ -24,17 +24,16 @@ public class Mover : MonoBehaviour
 
     if (_isFlying)
     {
-      if (transform.position.y < 5)
+      if (transform.position.y < _flyingHigh)
       {
-        _rigidbody.AddForce(Vector3.up * _rigidbody.mass * 1.05f);
+        _rigidbody.AddForce(Vector3.up * 1.1f, ForceMode.Acceleration);
       }
+      
       if (Input.GetKey(KeyCode.Space))
       {
         _isFlying = false;
-        _rigidbody.AddForce(Vector3.forward  * 3000f);
+        _rigidbody.AddForce(Vector3.forward*30f, ForceMode.Impulse);
       }
     }
-
-   
   }
 }
